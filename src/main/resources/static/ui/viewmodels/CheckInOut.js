@@ -1,11 +1,30 @@
 const ticket = 'LIKLckvwlJT9cWIhEQTwfJuU557garB7J1tppEvMocW-iUiFaI9vUMg2qx3lzwqT3mpp5OI-QyR6_PBudG1D9Q';
 
+const timestamp = Date.now();
+const nonceStr = Math.random().toString(16).substr(2);
+
+const urlStr = location.href;
+console.log(urlStr);
+
+// var url = new URL(urlStr);
+// var code = url.searchParams.get("code");
+// console.log('code:' + code);
+
+const originParams = 'jsapi_ticket=' + ticket
+    + '&noncestr=' + nonceStr
+    + '&timestamp=' + timestamp
+    + '&url=' + urlStr;
+
+var shaObj = new jsSHA("SHA-1", "TEXT");
+shaObj.update(originParams);
+var signature = shaObj.getHash("HEX");
+
 wx.config({
     debug: false,
     appId: 'wx0c14a6dfeab19166', // 必填，公众号的唯一标识
-    timestamp: 1548295875, // 必填，生成签名的时间戳
-    nonceStr: '1234567890abcdef', // 必填，生成签名的随机串
-    signature: '62e373fd5534a4d3edafa28462bf64b21c7a43f6',// 必填，签名
+    timestamp: timestamp, // 必填，生成签名的时间戳
+    nonceStr: nonceStr, // 必填，生成签名的随机串
+    signature: signature,// 必填，签名
     jsApiList: [
         'checkJsApi',
         'chooseImage',
