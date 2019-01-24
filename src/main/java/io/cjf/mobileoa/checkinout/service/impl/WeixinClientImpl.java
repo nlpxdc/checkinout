@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSONObject;
 import io.cjf.mobileoa.checkinout.api.WeixinApi;
 import io.cjf.mobileoa.checkinout.service.WeixinClient;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
 import retrofit2.Call;
 import retrofit2.Response;
 import retrofit2.Retrofit;
@@ -11,10 +12,8 @@ import retrofit2.converter.fastjson.FastJsonConverterFactory;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
-import java.net.URL;
-import java.util.Base64;
-import java.util.HashMap;
 
+@Component
 public class WeixinClientImpl implements WeixinClient {
 
     private Retrofit retrofit;
