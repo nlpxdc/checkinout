@@ -130,6 +130,22 @@ var app = new Vue({
                     console.error(err);
                 }
             });
+        },
+        getAccessToken() {
+            console.log('getAccessToken click');
+            axios.get('https://api.weixin.qq.com/cgi-bin/token', {
+                params: {
+                    grant_type: 'client_credential',
+                    appid: 'wx0c14a6dfeab19166',
+                    secret: '02a53bc213a98bb9fa6aae4157fd55eb'
+                }
+            })
+                .then(function (response) {
+                    console.log(response);
+                })
+                .catch(function (error) {
+                    console.log(error);
+                });
         }
     }
 });
