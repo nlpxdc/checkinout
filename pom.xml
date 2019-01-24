@@ -44,6 +44,16 @@
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>com.squareup.retrofit2</groupId>
+            <artifactId>retrofit</artifactId>
+            <version>2.5.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.ligboy.retrofit2</groupId>
+            <artifactId>converter-fastjson</artifactId>
+            <version>2.1.0</version>
+        </dependency>
     </dependencies>
 
     <build>
