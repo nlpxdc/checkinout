@@ -1,5 +1,6 @@
 package io.cjf.mobileoa.checkinout.controller;
 
+import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,8 +16,8 @@ public class MessageController {
     private Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @PostMapping(value = "/receive")
-    public String receive(@RequestBody JSONObject jsonObject){
-        logger.info("{}", jsonObject.toJSONString());
+    public String receive(@RequestBody Object object){
+        logger.info("{}", JSON.toJSONString(object));
         return "";
     }
 }
