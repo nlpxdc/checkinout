@@ -3,6 +3,7 @@ package io.cjf.mobileoa.checkinout.controller;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 //import io.cjf.mobileoa.checkinout.dto.MessageTextDTO;
+import io.cjf.mobileoa.checkinout.dto.MessageAutoResponseDTO;
 import javafx.beans.binding.ObjectBinding;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -43,9 +44,16 @@ public class MessageController {
 //        //return echostr;
 //    }
 
-    @PostMapping("/receive2")
-    public void receive2(@RequestBody JSONObject jsonObject){
+    @PostMapping(value = "/receive2",produces = MediaType.APPLICATION_XML_VALUE)
+    public MessageAutoResponseDTO receive2(@RequestBody JSONObject jsonObject){
         logger.info("{}",jsonObject);
+        MessageAutoResponseDTO messageAutoResponseDTO = new MessageAutoResponseDTO();
+        messageAutoResponseDTO.setToUserName("oUwXe58JsPM6MBFsI3YvnbFIpg-8");
+        messageAutoResponseDTO.setFromUserName("gh_aad09ca98ab8");
+        messageAutoResponseDTO.setCreateTime(new Date().getTime());
+        messageAutoResponseDTO.setMsgType("text");
+        messageAutoResponseDTO.setContent("hahaha");
+        return messageAutoResponseDTO;
 
     }
 
