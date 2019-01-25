@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 //import io.cjf.mobileoa.checkinout.dto.MessageTextDTO;
 import io.cjf.mobileoa.checkinout.dto.MessageAutoResponseDTO;
+import io.cjf.mobileoa.checkinout.dto.MessageReceiveDTO;
 import javafx.beans.binding.ObjectBinding;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -45,8 +46,8 @@ public class MessageController {
 //    }
 
     @PostMapping(value = "/receive2",produces = MediaType.APPLICATION_XML_VALUE)
-    public MessageAutoResponseDTO receive2(@RequestBody JSONObject jsonObject){
-        logger.info("{}",jsonObject);
+    public MessageAutoResponseDTO receive2(@RequestBody MessageReceiveDTO messageReceiveDTO){
+        logger.info("{}",messageReceiveDTO);
         MessageAutoResponseDTO messageAutoResponseDTO = new MessageAutoResponseDTO();
         messageAutoResponseDTO.setToUserName("oUwXe58JsPM6MBFsI3YvnbFIpg-8");
         messageAutoResponseDTO.setFromUserName("gh_aad09ca98ab8");
