@@ -16,8 +16,8 @@ public class MessageController {
     private Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @RequestMapping(value = "/receive")
-    public String receive(@RequestBody(required = false) JSONObject jsonObject){
-        logger.info("{}", JSON.toJSONString(jsonObject));
+    public String receive(@RequestBody(required = false) String jsonObject){
+        logger.info("{}", jsonObject);
         return "";
     }
 }
