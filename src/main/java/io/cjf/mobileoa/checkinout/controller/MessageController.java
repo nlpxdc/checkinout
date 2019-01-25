@@ -18,6 +18,6 @@ public class MessageController {
     @RequestMapping(value = "/receive")
     public String receive(@RequestBody(required = false) String jsonObject){
         logger.info("{}", jsonObject);
-        return "";
+        return "abc123";
     }
 }
