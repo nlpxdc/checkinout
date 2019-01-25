@@ -57,15 +57,17 @@ public class MessageController {
 //    }
 
     @PostMapping(value = "/receive2",produces = MediaType.APPLICATION_XML_VALUE)
-    public MessageAutoResponseDTO receive2(@RequestBody MessageReceiveDTO messageReceiveDTO) throws IOException {
+    public MessageAutoResponseDTO receive2(@RequestBody JSONObject messageReceiveDTO) throws IOException {
         logger.info("{}",JSON.toJSONString(messageReceiveDTO));
         MessageAutoResponseDTO messageAutoResponseDTO = new MessageAutoResponseDTO();
-        messageAutoResponseDTO.setToUserName(messageReceiveDTO.getFromUserName());
-        messageAutoResponseDTO.setFromUserName(messageReceiveDTO.getToUserName());
+        String fromUserName = messageReceiveDTO.getString("FromUserName");
+        messageAutoResponseDTO.setToUserName(fromUserName);
+        String toUserName = messageReceiveDTO.getString("ToUserName");
+        messageAutoResponseDTO.setFromUserName(toUserName);
         messageAutoResponseDTO.setCreateTime(new Date().getTime());
         messageAutoResponseDTO.setMsgType("text");
 
-        JSONObject userInfo = weixinClient.getUserInfo(accessToken, messageReceiveDTO.getFromUserName());
+        JSONObject userInfo = weixinClient.getUserInfo(accessToken, fromUserName);
         String nickname = userInfo.getString("nickname");
 
         messageAutoResponseDTO.setContent(String.format("welcome %s",nickname));
