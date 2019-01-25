@@ -1,24 +1,24 @@
 package io.cjf.mobileoa.checkinout.dto;
 
-import com.alibaba.fastjson.annotation.JSONField;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlCData;
+import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement;
-import retrofit2.http.Field;
-
-import javax.xml.bind.annotation.XmlElement;
 
 @JacksonXmlRootElement(localName = "xml")
 public class MessageTextDTO {
-    @JacksonXmlCData
+
     private String ToUserName;
-    @JacksonXmlCData
+
     private String FromUserName;
+
     private Long CreateTime;
-    @JacksonXmlCData
+
     private String MsgType;
-    @JacksonXmlCData
+
     private String Content;
 
+    @JacksonXmlCData
+    @JacksonXmlProperty(localName = "ToUserName")
     public String getToUserName() {
         return ToUserName;
     }
@@ -27,6 +27,8 @@ public class MessageTextDTO {
         ToUserName = toUserName;
     }
 
+    @JacksonXmlCData
+    @JacksonXmlProperty(localName = "FromUserName")
     public String getFromUserName() {
         return FromUserName;
     }
@@ -35,6 +37,7 @@ public class MessageTextDTO {
         FromUserName = fromUserName;
     }
 
+    @JacksonXmlProperty(localName = "CreateTime")
     public Long getCreateTime() {
         return CreateTime;
     }
@@ -43,6 +46,8 @@ public class MessageTextDTO {
         CreateTime = createTime;
     }
 
+    @JacksonXmlCData
+    @JacksonXmlProperty(localName = "MsgType")
     public String getMsgType() {
         return MsgType;
     }
@@ -51,6 +56,8 @@ public class MessageTextDTO {
         MsgType = msgType;
     }
 
+    @JacksonXmlCData
+    @JacksonXmlProperty(localName = "Content")
     public String getContent() {
         return Content;
     }
