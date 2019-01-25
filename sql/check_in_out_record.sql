@@ -5,7 +5,7 @@ SET FOREIGN_KEY_CHECKS=0;
 -- ----------------------------
 DROP TABLE IF EXISTS `check_in_out_record`;
 CREATE TABLE `check_in_out_record` (
-  `id` varchar(50) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `openId` varchar(100) NOT NULL ,
   `type` int(11) NOT NULL ,
   `time` datetime NOT NULL,

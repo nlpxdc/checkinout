@@ -20,10 +20,10 @@
     delete from check_in_out_record
     where id = #{id,jdbcType=VARCHAR}
   </delete>
-  <insert id="insert" parameterType="io.cjf.mobileoa.checkinout.po.CheckInOutRecord">
-    insert into check_in_out_record (id, openId, type, 
+  <insert id="insert" parameterType="io.cjf.mobileoa.checkinout.po.CheckInOutRecord" useGeneratedKeys="true" keyProperty="id">
+    insert into check_in_out_record (openId, type,
       time)
-    values (#{id,jdbcType=VARCHAR}, #{openid,jdbcType=VARCHAR}, #{type,jdbcType=INTEGER}, 
+    values ( #{openid,jdbcType=VARCHAR}, #{type,jdbcType=INTEGER},
       #{time,jdbcType=TIMESTAMP})
   </insert>
   <insert id="insertSelective" parameterType="io.cjf.mobileoa.checkinout.po.CheckInOutRecord">
