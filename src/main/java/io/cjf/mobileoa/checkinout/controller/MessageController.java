@@ -18,7 +18,7 @@ public class MessageController {
     private Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @RequestMapping(value = "/receive", produces = MediaType.APPLICATION_XML_VALUE)
-    public String receive(@RequestBody(required = false) String jsonObject, @RequestParam Map<String,String> allParams, @RequestParam(required = false) String echostr){
+    public MessageTextDTO receive(@RequestBody(required = false) String jsonObject, @RequestParam Map<String,String> allParams, @RequestParam(required = false) String echostr){
         logger.info("{}", jsonObject);
         logger.info("{}", allParams);
         MessageTextDTO messageTextDTO = new MessageTextDTO();
@@ -37,7 +37,7 @@ public class MessageController {
                 "</MessageTextDTO>";
 
 
-        return retStr;
+        return messageTextDTO;
         //return echostr;
     }
 }

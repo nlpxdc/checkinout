@@ -1,10 +1,22 @@
 package io.cjf.mobileoa.checkinout.dto;
 
+import com.alibaba.fastjson.annotation.JSONField;
+import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlCData;
+import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement;
+import retrofit2.http.Field;
+
+import javax.xml.bind.annotation.XmlElement;
+
+@JacksonXmlRootElement(localName = "xml")
 public class MessageTextDTO {
+    @JacksonXmlCData
     private String ToUserName;
+    @JacksonXmlCData
     private String FromUserName;
     private Long CreateTime;
+    @JacksonXmlCData
     private String MsgType;
+    @JacksonXmlCData
     private String Content;
 
     public String getToUserName() {
