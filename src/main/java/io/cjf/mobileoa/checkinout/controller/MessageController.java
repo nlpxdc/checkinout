@@ -28,13 +28,13 @@ public class MessageController {
         messageTextDTO.setMsgType("text");
         messageTextDTO.setContent("lalala");
 
-        String retStr = "<xml>\n" +
+        String retStr = "<MessageTextDTO>\n" +
                 "    <Content>lalala</Content>\n" +
                 "    <ToUserName>oUwXe58JsPM6MBFsI3YvnbFIpg-8</ToUserName>\n" +
                 "    <FromUserName>gh_aad09ca98ab8</FromUserName>\n" +
                 "    <MsgType>text</MsgType>\n" +
                 "    <CreateTime>1548396765780</CreateTime>\n" +
-                "</xml>";
+                "</MessageTextDTO>";
 
 
         return retStr;
