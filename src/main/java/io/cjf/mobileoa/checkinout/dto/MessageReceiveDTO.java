@@ -1,87 +1,80 @@
 package io.cjf.mobileoa.checkinout.dto;
 
-import javax.annotation.Generated;
-import com.alibaba.fastjson.annotation.JSONField;
+import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlCData;
+import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
+import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement;
 
-@Generated("com.robohorse.robopojogenerator")
+@JacksonXmlRootElement(localName = "xml")
 public class MessageReceiveDTO{
 
-	@JSONField(name="Content")
-	private String content;
+	@JacksonXmlProperty(localName = "Content")
+	@JacksonXmlCData
+	private String Content;
 
-	@JSONField(name="CreateTime")
-	private String createTime;
+	@JacksonXmlProperty(localName = "CreateTime")
+	private String CreateTime;
 
-	@JSONField(name="ToUserName")
-	private String toUserName;
+	@JacksonXmlProperty(localName = "ToUserName")
+	@JacksonXmlCData
+	private String ToUserName;
 
-	@JSONField(name="FromUserName")
-	private String fromUserName;
+	@JacksonXmlProperty(localName = "FromUserName")
+	@JacksonXmlCData
+	private String FromUserName;
 
-	@JSONField(name="MsgType")
-	private String msgType;
+	@JacksonXmlProperty(localName = "MsgType")
+	@JacksonXmlCData
+	private String MsgType;
 
-	@JSONField(name="MsgId")
-	private String msgId;
+	@JacksonXmlProperty(localName = "MsgId")
+	@JacksonXmlCData
+	private String MsgId;
 
-	public void setContent(String content){
-		this.content = content;
+	public String getContent() {
+		return Content;
 	}
 
-	public String getContent(){
-		return content;
+	public void setContent(String content) {
+		Content = content;
 	}
 
-	public void setCreateTime(String createTime){
-		this.createTime = createTime;
+	public String getCreateTime() {
+		return CreateTime;
 	}
 
-	public String getCreateTime(){
-		return createTime;
+	public void setCreateTime(String createTime) {
+		CreateTime = createTime;
 	}
 
-	public void setToUserName(String toUserName){
-		this.toUserName = toUserName;
+	public String getToUserName() {
+		return ToUserName;
 	}
 
-	public String getToUserName(){
-		return toUserName;
+	public void setToUserName(String toUserName) {
+		ToUserName = toUserName;
 	}
 
-	public void setFromUserName(String fromUserName){
-		this.fromUserName = fromUserName;
+	public String getFromUserName() {
+		return FromUserName;
 	}
 
-	public String getFromUserName(){
-		return fromUserName;
+	public void setFromUserName(String fromUserName) {
+		FromUserName = fromUserName;
 	}
 
-	public void setMsgType(String msgType){
-		this.msgType = msgType;
+	public String getMsgType() {
+		return MsgType;
 	}
 
-	public String getMsgType(){
-		return msgType;
+	public void setMsgType(String msgType) {
+		MsgType = msgType;
 	}
 
-	public void setMsgId(String msgId){
-		this.msgId = msgId;
+	public String getMsgId() {
+		return MsgId;
 	}
 
-	public String getMsgId(){
-		return msgId;
+	public void setMsgId(String msgId) {
+		MsgId = msgId;
 	}
-
-	@Override
- 	public String toString(){
-		return 
-			"MessageReceiveDTO{" + 
-			"content = '" + content + '\'' + 
-			",createTime = '" + createTime + '\'' + 
-			",toUserName = '" + toUserName + '\'' + 
-			",fromUserName = '" + fromUserName + '\'' + 
-			",msgType = '" + msgType + '\'' + 
-			",msgId = '" + msgId + '\'' + 
-			"}";
-		}
 }
