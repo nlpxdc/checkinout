@@ -1,10 +1,10 @@
 SET FOREIGN_KEY_CHECKS=0;
 
 -- ----------------------------
--- Table structure for check_in_out
+-- Table structure for check_in_out_record
 -- ----------------------------
-DROP TABLE IF EXISTS `check_in_out`;
-CREATE TABLE `check_in_out` (
+DROP TABLE IF EXISTS `check_in_out_record`;
+CREATE TABLE `check_in_out_record` (
   `id` varchar(50) NOT NULL,
   `openId` varchar(100) NOT NULL ,
   `type` int(11) NOT NULL ,
