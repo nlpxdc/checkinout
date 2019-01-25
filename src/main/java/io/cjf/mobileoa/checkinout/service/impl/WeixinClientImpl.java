@@ -48,4 +48,12 @@ public class WeixinClientImpl implements WeixinClient {
         JSONObject jsonObject = response.body();
         return jsonObject;
     }
+
+    @Override
+    public JSONObject getUserInfo(String access_token, String openid) throws IOException {
+        Call<JSONObject> call = weixinApi.getUserInfo(access_token, openid, "zh_CN");
+        Response<JSONObject> response = call.execute();
+        JSONObject jsonObject = response.body();
+        return jsonObject;
+    }
 }

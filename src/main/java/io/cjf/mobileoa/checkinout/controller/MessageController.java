@@ -5,13 +5,18 @@ import com.alibaba.fastjson.JSONObject;
 //import io.cjf.mobileoa.checkinout.dto.MessageTextDTO;
 import io.cjf.mobileoa.checkinout.dto.MessageAutoResponseDTO;
 import io.cjf.mobileoa.checkinout.dto.MessageReceiveDTO;
+import io.cjf.mobileoa.checkinout.service.WeixinClient;
+import io.cjf.mobileoa.checkinout.service.impl.WeixinClientImpl;
 import javafx.beans.binding.ObjectBinding;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import retrofit2.http.GET;
 
+import java.io.IOException;
 import java.util.Date;
 import java.util.Map;
 
@@ -20,6 +25,12 @@ import java.util.Map;
 public class MessageController {
 
     private Logger logger = LoggerFactory.getLogger(this.getClass());
+
+    @Autowired
+    private WeixinClientImpl weixinClient;
+
+    @Value("${weixin.accessToken}")
+    private String accessToken;
 
 //    @RequestMapping(value = "/receive", produces = MediaType.APPLICATION_XML_VALUE)
 //    public MessageTextDTO receive(@RequestBody(required = false) String jsonObject, @RequestParam Map<String,String> allParams, @RequestParam(required = false) String echostr){
@@ -46,14 +57,18 @@ public class MessageController {
 //    }
 
     @PostMapping(value = "/receive2",produces = MediaType.APPLICATION_XML_VALUE)
-    public MessageAutoResponseDTO receive2(@RequestBody MessageReceiveDTO messageReceiveDTO){
+    public MessageAutoResponseDTO receive2(@RequestBody MessageReceiveDTO messageReceiveDTO) throws IOException {
         logger.info("{}",JSON.toJSONString(messageReceiveDTO));
         MessageAutoResponseDTO messageAutoResponseDTO = new MessageAutoResponseDTO();
         messageAutoResponseDTO.setToUserName(messageReceiveDTO.getFromUserName());
         messageAutoResponseDTO.setFromUserName(messageReceiveDTO.getToUserName());
         messageAutoResponseDTO.setCreateTime(new Date().getTime());
         messageAutoResponseDTO.setMsgType("text");
-        messageAutoResponseDTO.setContent("welcome buddy");
+
+        JSONObject userInfo = weixinClient.getUserInfo(accessToken, messageReceiveDTO.getFromUserName());
+        String nickname = userInfo.getString("nickname");
+
+        messageAutoResponseDTO.setContent(String.format("welcome %s",nickname));
         return messageAutoResponseDTO;
 
     }

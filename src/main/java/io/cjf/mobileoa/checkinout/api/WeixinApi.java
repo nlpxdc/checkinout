@@ -13,4 +13,7 @@ public interface WeixinApi {
     @GET("sns/userinfo")
     Call<JSONObject> getSnsUserInfo(@Query("access_token") String access_token, @Query("openid") String openid, @Query("lang") String lang);
 
+    @GET("cgi-bin/user/info")
+    Call<JSONObject> getUserInfo(@Query("access_token") String access_token, @Query("openid") String openid, @Query("lang") String lang);
+
 }
