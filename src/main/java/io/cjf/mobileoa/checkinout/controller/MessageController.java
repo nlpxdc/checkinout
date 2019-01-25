@@ -49,11 +49,11 @@ public class MessageController {
     public MessageAutoResponseDTO receive2(@RequestBody MessageReceiveDTO messageReceiveDTO){
         logger.info("{}",JSON.toJSONString(messageReceiveDTO));
         MessageAutoResponseDTO messageAutoResponseDTO = new MessageAutoResponseDTO();
-        messageAutoResponseDTO.setToUserName("oUwXe58JsPM6MBFsI3YvnbFIpg-8");
-        messageAutoResponseDTO.setFromUserName("gh_aad09ca98ab8");
+        messageAutoResponseDTO.setToUserName(messageReceiveDTO.getFromUserName());
+        messageAutoResponseDTO.setFromUserName(messageReceiveDTO.getToUserName());
         messageAutoResponseDTO.setCreateTime(new Date().getTime());
         messageAutoResponseDTO.setMsgType("text");
-        messageAutoResponseDTO.setContent("hahaha");
+        messageAutoResponseDTO.setContent("welcome buddy");
         return messageAutoResponseDTO;
 
     }
