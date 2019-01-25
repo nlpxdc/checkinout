@@ -5,6 +5,7 @@ import com.alibaba.fastjson.JSONObject;
 import io.cjf.mobileoa.checkinout.dto.MessageTextDTO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
@@ -16,7 +17,7 @@ public class MessageController {
 
     private Logger logger = LoggerFactory.getLogger(this.getClass());
 
-    @RequestMapping(value = "/receive")
+    @RequestMapping(value = "/receive", produces = MediaType.APPLICATION_XML_VALUE)
     public MessageTextDTO receive(@RequestBody(required = false) String jsonObject, @RequestParam Map<String,String> allParams, @RequestParam(required = false) String echostr){
         logger.info("{}", jsonObject);
         logger.info("{}", allParams);
