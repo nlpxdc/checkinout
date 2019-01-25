@@ -43,17 +43,17 @@ public class MessageController {
 //        //return echostr;
 //    }
 
-//    @PostMapping("/receive2")
-//    public void receive2(@RequestBody JSONObject jsonObject){
-//        logger.info("{}",jsonObject);
-//
-//    }
-
-    @GetMapping("/receive2")
-    public String receive2(@RequestParam Map<String,String> allParams){
-        logger.info("{}",allParams);
-        String echostr = allParams.get("echostr");
-        return echostr;
+    @PostMapping("/receive2")
+    public void receive2(@RequestBody JSONObject jsonObject){
+        logger.info("{}",jsonObject);
 
     }
+
+//    @GetMapping("/receive2")
+//    public String receive2(@RequestParam Map<String,String> allParams){
+//        logger.info("{}",allParams);
+//        String echostr = allParams.get("echostr");
+//        return echostr;
+//
+//    }
 }
