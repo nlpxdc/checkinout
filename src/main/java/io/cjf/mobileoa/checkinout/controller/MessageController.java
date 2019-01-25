@@ -47,7 +47,7 @@ public class MessageController {
 
     @PostMapping(value = "/receive2",produces = MediaType.APPLICATION_XML_VALUE)
     public MessageAutoResponseDTO receive2(@RequestBody MessageReceiveDTO messageReceiveDTO){
-        logger.info("{}",messageReceiveDTO);
+        logger.info("{}",JSON.toJSONString(messageReceiveDTO));
         MessageAutoResponseDTO messageAutoResponseDTO = new MessageAutoResponseDTO();
         messageAutoResponseDTO.setToUserName("oUwXe58JsPM6MBFsI3YvnbFIpg-8");
         messageAutoResponseDTO.setFromUserName("gh_aad09ca98ab8");
