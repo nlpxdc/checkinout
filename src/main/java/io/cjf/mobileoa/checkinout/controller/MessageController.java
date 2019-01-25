@@ -8,6 +8,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
+import retrofit2.http.GET;
 
 import java.util.Date;
 import java.util.Map;
@@ -42,9 +43,17 @@ public class MessageController {
 //        //return echostr;
 //    }
 
-    @PostMapping("/receive2")
-    public void receive2(@RequestBody JSONObject jsonObject){
-        logger.info("{}",jsonObject);
+//    @PostMapping("/receive2")
+//    public void receive2(@RequestBody JSONObject jsonObject){
+//        logger.info("{}",jsonObject);
+//
+//    }
+
+    @GetMapping("/receive2")
+    public String receive2(@RequestParam Map<String,String> allParams){
+        logger.info("{}",allParams);
+        String echostr = allParams.get("echostr");
+        return echostr;
 
     }
 }
