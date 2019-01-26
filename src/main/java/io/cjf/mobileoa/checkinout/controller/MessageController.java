@@ -82,6 +82,7 @@ public class MessageController {
             if (event.equals("subscribe")){
                 String fromUserName = messageReceiveDTO.getString("FromUserName");
                 JSONObject userInfo = weixinClient.getUserInfo(accessToken, fromUserName);
+                logger.info("{}",userInfo);
                 String openid = userInfo.getString("openid");
                 if (openid == null || openid.isEmpty()){
                     throw new Exception("openId is null, check access token");
