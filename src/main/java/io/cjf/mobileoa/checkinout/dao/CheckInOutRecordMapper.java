@@ -1,5 +1,6 @@
 package io.cjf.mobileoa.checkinout.dao;
 
+import com.github.pagehelper.Page;
 import io.cjf.mobileoa.checkinout.po.CheckInOutRecord;
 
 public interface CheckInOutRecordMapper {
@@ -10,6 +11,8 @@ public interface CheckInOutRecordMapper {
     int insertSelective(CheckInOutRecord record);
 
     CheckInOutRecord selectByPrimaryKey(Integer id);
+
+    Page<CheckInOutRecord> selectWithPage();
 
     int updateByPrimaryKeySelective(CheckInOutRecord record);
 

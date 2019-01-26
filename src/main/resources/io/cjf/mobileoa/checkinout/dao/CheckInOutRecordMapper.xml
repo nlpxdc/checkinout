@@ -15,6 +15,11 @@
     from check_in_out_record
     where id = #{id,jdbcType=INTEGER}
   </select>
+  <select id="selectWithPage" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from check_in_out_record
+  </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from check_in_out_record
     where id = #{id,jdbcType=INTEGER}
