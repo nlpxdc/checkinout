@@ -5,7 +5,9 @@ import com.alibaba.fastjson.JSONObject;
 //import io.cjf.mobileoa.checkinout.dto.MessageTextDTO;
 import io.cjf.mobileoa.checkinout.dto.MessageAutoResponseDTO;
 import io.cjf.mobileoa.checkinout.dto.MessageReceiveDTO;
+import io.cjf.mobileoa.checkinout.po.User;
 import io.cjf.mobileoa.checkinout.service.WeixinClient;
+import io.cjf.mobileoa.checkinout.service.impl.UserServiceImpl;
 import io.cjf.mobileoa.checkinout.service.impl.WeixinClientImpl;
 import javafx.beans.binding.ObjectBinding;
 import org.slf4j.Logger;
@@ -28,6 +30,9 @@ public class MessageController {
 
     @Autowired
     private WeixinClientImpl weixinClient;
+
+    @Autowired
+    private UserServiceImpl userService;
 
     @Value("${weixin.accessToken}")
     private String accessToken;
@@ -57,21 +62,58 @@ public class MessageController {
 //    }
 
     @PostMapping(value = "/receive2",produces = MediaType.APPLICATION_XML_VALUE)
-    public MessageAutoResponseDTO receive2(@RequestBody JSONObject messageReceiveDTO) throws IOException {
+    public Object receive2(@RequestBody JSONObject messageReceiveDTO) throws Exception {
         logger.info("{}",JSON.toJSONString(messageReceiveDTO));
-        MessageAutoResponseDTO messageAutoResponseDTO = new MessageAutoResponseDTO();
-        String fromUserName = messageReceiveDTO.getString("FromUserName");
-        messageAutoResponseDTO.setToUserName(fromUserName);
-        String toUserName = messageReceiveDTO.getString("ToUserName");
-        messageAutoResponseDTO.setFromUserName(toUserName);
-        messageAutoResponseDTO.setCreateTime(new Date().getTime());
-        messageAutoResponseDTO.setMsgType("text");
+//        MessageAutoResponseDTO messageAutoResponseDTO = new MessageAutoResponseDTO();
+//        String fromUserName = messageReceiveDTO.getString("FromUserName");
+//        messageAutoResponseDTO.setToUserName(fromUserName);
+//        String toUserName = messageReceiveDTO.getString("ToUserName");
+//        messageAutoResponseDTO.setFromUserName(toUserName);
+//        messageAutoResponseDTO.setCreateTime(new Date().getTime());
+//        messageAutoResponseDTO.setMsgType("text");
+//
+//        JSONObject userInfo = weixinClient.getUserInfo(accessToken, fromUserName);
+//        String nickname = userInfo.getString("nickname");
+//
+//        messageAutoResponseDTO.setContent(String.format("welcome %s",nickname));
+        String msgType = messageReceiveDTO.getString("MsgType");
+        if (msgType.equals("event")){
+            String event = messageReceiveDTO.getString("Event");
+            if (event.equals("subscribe")){
+                String fromUserName = messageReceiveDTO.getString("FromUserName");
+                JSONObject userInfo = weixinClient.getUserInfo(accessToken, fromUserName);
+                String openid = userInfo.getString("openid");
+                if (openid == null || openid.isEmpty()){
+                    throw new Exception("openId is null, check access token");
+                }
+                User userOrigin = userService.getById(openid);
+                if (userOrigin != null){
+                    return "success";
+                }
+                User user = new User();
+                user.setOpenid(openid);
+                String nickname = userInfo.getString("nickname");
+                Integer gender = userInfo.getInteger("sex");
+                String avatarUrl = userInfo.getString("headimgurl");
+                user.setNickname(nickname);
+                user.setGender(gender);
+                user.setAvatarUrl(avatarUrl);
+                userService.create(user);
 
-        JSONObject userInfo = weixinClient.getUserInfo(accessToken, fromUserName);
-        String nickname = userInfo.getString("nickname");
+                MessageAutoResponseDTO messageAutoResponseDTO = new MessageAutoResponseDTO();
+//                String fromUserName = messageReceiveDTO.getString("FromUserName");
+                messageAutoResponseDTO.setToUserName(fromUserName);
+                String toUserName = messageReceiveDTO.getString("ToUserName");
+                messageAutoResponseDTO.setFromUserName(toUserName);
+                messageAutoResponseDTO.setCreateTime(new Date().getTime());
+                messageAutoResponseDTO.setMsgType("text");
+                messageAutoResponseDTO.setContent(String.format("你好，%s，欢迎订阅",nickname));
+                return messageAutoResponseDTO;
+            }
+        }
 
-        messageAutoResponseDTO.setContent(String.format("welcome %s",nickname));
-        return messageAutoResponseDTO;
+
+        return null;
 
     }
 
