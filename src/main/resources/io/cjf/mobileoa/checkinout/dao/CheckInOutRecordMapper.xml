@@ -2,29 +2,28 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="io.cjf.mobileoa.checkinout.dao.CheckInOutRecordMapper">
   <resultMap id="BaseResultMap" type="io.cjf.mobileoa.checkinout.po.CheckInOutRecord">
-    <id column="id" jdbcType="VARCHAR" property="id" />
+    <id column="id" jdbcType="INTEGER" property="id" />
     <result column="openId" jdbcType="VARCHAR" property="openid" />
-    <result column="type" jdbcType="INTEGER" property="type" />
     <result column="time" jdbcType="TIMESTAMP" property="time" />
   </resultMap>
   <sql id="Base_Column_List">
-    id, openId, type, time
+    id, openId, time
   </sql>
-  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
     from check_in_out_record
-    where id = #{id,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from check_in_out_record
-    where id = #{id,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="io.cjf.mobileoa.checkinout.po.CheckInOutRecord" useGeneratedKeys="true" keyProperty="id">
-    insert into check_in_out_record (openId, type,
-      time)
-    values ( #{openid,jdbcType=VARCHAR}, #{type,jdbcType=INTEGER},
-      #{time,jdbcType=TIMESTAMP})
+    insert into check_in_out_record (openId, time
+      )
+    values (#{openid,jdbcType=VARCHAR}, #{time,jdbcType=TIMESTAMP}
+      )
   </insert>
   <insert id="insertSelective" parameterType="io.cjf.mobileoa.checkinout.po.CheckInOutRecord">
     insert into check_in_out_record
@@ -35,22 +34,16 @@
       <if test="openid != null">
         openId,
       </if>
-      <if test="type != null">
-        type,
-      </if>
       <if test="time != null">
         time,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">
-        #{id,jdbcType=VARCHAR},
+        #{id,jdbcType=INTEGER},
       </if>
       <if test="openid != null">
         #{openid,jdbcType=VARCHAR},
-      </if>
-      <if test="type != null">
-        #{type,jdbcType=INTEGER},
       </if>
       <if test="time != null">
         #{time,jdbcType=TIMESTAMP},
@@ -63,20 +56,16 @@
       <if test="openid != null">
         openId = #{openid,jdbcType=VARCHAR},
       </if>
-      <if test="type != null">
-        type = #{type,jdbcType=INTEGER},
-      </if>
       <if test="time != null">
         time = #{time,jdbcType=TIMESTAMP},
       </if>
     </set>
-    where id = #{id,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="io.cjf.mobileoa.checkinout.po.CheckInOutRecord">
     update check_in_out_record
     set openId = #{openid,jdbcType=VARCHAR},
-      type = #{type,jdbcType=INTEGER},
       time = #{time,jdbcType=TIMESTAMP}
-    where id = #{id,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

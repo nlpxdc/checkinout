@@ -2,7 +2,6 @@ package io.cjf.mobileoa.checkinout.service.impl;
 
 import io.cjf.mobileoa.checkinout.dao.CheckInOutRecordMapper;
 import io.cjf.mobileoa.checkinout.dao.UserMapper;
-import io.cjf.mobileoa.checkinout.enumeration.CheckType;
 import io.cjf.mobileoa.checkinout.po.CheckInOutRecord;
 import io.cjf.mobileoa.checkinout.po.User;
 import io.cjf.mobileoa.checkinout.service.UserService;
@@ -32,10 +31,9 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void checkInOut(String openId, CheckType checkType, Date time) {
+    public void checkInOut(String openId, Date time) {
         CheckInOutRecord checkInOutRecord = new CheckInOutRecord();
         checkInOutRecord.setOpenid(openId);
-        checkInOutRecord.setType(checkType.ordinal());
         checkInOutRecord.setTime(time);
 
         checkInOutRecordMapper.insert(checkInOutRecord);

@@ -111,6 +111,23 @@ public class MessageController {
                 messageAutoResponseDTO.setContent(String.format("你好，%s，欢迎订阅",nickname));
                 return messageAutoResponseDTO;
             }
+
+            if (event.equals("CLICK")){
+                String eventKey = messageReceiveDTO.getString("EventKey");
+                if (eventKey.equals("checkinout")){
+                    String fromUserName = messageReceiveDTO.getString("FromUserName");
+                    userService.checkInOut(fromUserName,new Date());
+                    MessageAutoResponseDTO messageAutoResponseDTO = new MessageAutoResponseDTO();
+//                String fromUserName = messageReceiveDTO.getString("FromUserName");
+                    messageAutoResponseDTO.setToUserName(fromUserName);
+                    String toUserName = messageReceiveDTO.getString("ToUserName");
+                    messageAutoResponseDTO.setFromUserName(toUserName);
+                    messageAutoResponseDTO.setCreateTime(new Date().getTime());
+                    messageAutoResponseDTO.setMsgType("text");
+                    messageAutoResponseDTO.setContent("签到成功");
+                    return messageAutoResponseDTO;
+                }
+            }
         }
 
 
