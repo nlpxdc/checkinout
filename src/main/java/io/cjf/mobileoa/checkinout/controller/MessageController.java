@@ -23,6 +23,9 @@ import org.springframework.web.bind.annotation.*;
 import retrofit2.http.GET;
 
 import java.io.IOException;
+import java.time.LocalTime;
+import java.time.ZoneId;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -135,6 +138,7 @@ public class MessageController {
                 }
 
                 if (eventKey.equals("checkinout")){
+
                     String fromUserName = messageReceiveDTO.getString("FromUserName");
                     String positionUserKey = "position" + fromUserName;
                     Double latitude = (Double)redisTemplate.opsForHash().get(positionUserKey, "latitude");
@@ -161,7 +165,24 @@ public class MessageController {
                         return messageAutoResponseDTO;
                     }
 
-                    userService.checkInOut(fromUserName,new Date());
+                    Date now = new Date();
+                    LocalTime time = now.toInstant().atZone(ZoneId.systemDefault()).toLocalTime();
+                    LocalTime onWorkStart = LocalTime.parse("08:00:00");
+                    LocalTime onWorkEnd = LocalTime.parse("09:00:00");
+                    LocalTime offWorkStart = LocalTime.parse("17:00:00");
+                    LocalTime offWorkEnd = LocalTime.parse("18:00:00");
+
+                    String content = "";
+                    if (time.isAfter(onWorkStart) && time.isBefore(onWorkEnd)){
+                        content = "上班打卡成功";
+                        userService.checkInOut(fromUserName,new Date());
+                    }else if (time.isAfter(offWorkStart) && time.isBefore(offWorkEnd)){
+                        content = "下班打卡成功";
+                        userService.checkInOut(fromUserName,new Date());
+                    }else {
+                        content = "不在打卡时间内";
+                    }
+
                     MessageAutoResponseDTO messageAutoResponseDTO = new MessageAutoResponseDTO();
 //                String fromUserName = messageReceiveDTO.getString("FromUserName");
                     messageAutoResponseDTO.setToUserName(fromUserName);
@@ -169,7 +190,7 @@ public class MessageController {
                     messageAutoResponseDTO.setFromUserName(toUserName);
                     messageAutoResponseDTO.setCreateTime(new Date().getTime());
                     messageAutoResponseDTO.setMsgType("text");
-                    messageAutoResponseDTO.setContent("签到成功");
+                    messageAutoResponseDTO.setContent(content);
                     return messageAutoResponseDTO;
                 }
             }
