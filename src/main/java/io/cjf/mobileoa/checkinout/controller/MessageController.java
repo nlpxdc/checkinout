@@ -129,6 +129,11 @@ public class MessageController {
 
             if (event.equals("CLICK")){
                 String eventKey = messageReceiveDTO.getString("EventKey");
+
+                if (eventKey == null){
+                    return "success";
+                }
+
                 if (eventKey.equals("checkinout")){
                     String fromUserName = messageReceiveDTO.getString("FromUserName");
                     String positionUserKey = "position" + fromUserName;
