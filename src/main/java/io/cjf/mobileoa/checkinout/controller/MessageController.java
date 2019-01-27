@@ -3,6 +3,9 @@ package io.cjf.mobileoa.checkinout.controller;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 //import io.cjf.mobileoa.checkinout.dto.MessageTextDTO;
+import com.grum.geocalc.Coordinate;
+import com.grum.geocalc.EarthCalc;
+import com.grum.geocalc.Point;
 import io.cjf.mobileoa.checkinout.dto.MessageAutoResponseDTO;
 import io.cjf.mobileoa.checkinout.dto.MessageReceiveDTO;
 import io.cjf.mobileoa.checkinout.po.User;
@@ -42,6 +45,12 @@ public class MessageController {
 
     @Value("${weixin.accessToken}")
     private String accessToken;
+
+    @Value("${checkInOut.latitude}")
+    private Double checkLatitude;
+
+    @Value("${checkInOut.longitude}")
+    private Double checkLongitude;
 
 //    @RequestMapping(value = "/receive", produces = MediaType.APPLICATION_XML_VALUE)
 //    public MessageTextDTO receive(@RequestBody(required = false) String jsonObject, @RequestParam Map<String,String> allParams, @RequestParam(required = false) String echostr){
@@ -122,6 +131,31 @@ public class MessageController {
                 String eventKey = messageReceiveDTO.getString("EventKey");
                 if (eventKey.equals("checkinout")){
                     String fromUserName = messageReceiveDTO.getString("FromUserName");
+                    String positionUserKey = "position" + fromUserName;
+                    Double latitude = (Double)redisTemplate.opsForHash().get(positionUserKey, "latitude");
+                    Double longitude = (Double)redisTemplate.opsForHash().get(positionUserKey, "longitude");
+
+                    Coordinate lat = Coordinate.fromDegrees(latitude);
+                    Coordinate lng = Coordinate.fromDegrees(longitude);
+                    Point userCurrentPosition = Point.at(lat, lng);
+
+                    lat = Coordinate.fromDegrees(checkLatitude);
+                    lng = Coordinate.fromDegrees(checkLongitude);
+                    Point checkPosition = Point.at(lat, lng);
+
+                    double distance = EarthCalc.harvesineDistance(userCurrentPosition, checkPosition); //in meters
+
+                    if (distance > 100.00D){
+                        MessageAutoResponseDTO messageAutoResponseDTO = new MessageAutoResponseDTO();
+                        messageAutoResponseDTO.setToUserName(fromUserName);
+                        String toUserName = messageReceiveDTO.getString("ToUserName");
+                        messageAutoResponseDTO.setFromUserName(toUserName);
+                        messageAutoResponseDTO.setCreateTime(new Date().getTime());
+                        messageAutoResponseDTO.setMsgType("text");
+                        messageAutoResponseDTO.setContent("不在打卡范围内");
+                        return messageAutoResponseDTO;
+                    }
+
                     userService.checkInOut(fromUserName,new Date());
                     MessageAutoResponseDTO messageAutoResponseDTO = new MessageAutoResponseDTO();
 //                String fromUserName = messageReceiveDTO.getString("FromUserName");
