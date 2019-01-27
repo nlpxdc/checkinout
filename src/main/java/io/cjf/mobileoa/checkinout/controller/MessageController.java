@@ -14,13 +14,16 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import retrofit2.http.GET;
 
 import java.io.IOException;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 @RestController
 @RequestMapping("/message")
@@ -33,6 +36,9 @@ public class MessageController {
 
     @Autowired
     private UserServiceImpl userService;
+
+    @Autowired
+    private RedisTemplate redisTemplate;
 
     @Value("${weixin.accessToken}")
     private String accessToken;
@@ -127,6 +133,19 @@ public class MessageController {
                     messageAutoResponseDTO.setContent("签到成功");
                     return messageAutoResponseDTO;
                 }
+            }
+
+            if (event.equals("LOCATION")){
+                String fromUserName = messageReceiveDTO.getString("FromUserName");
+                Double latitude = messageReceiveDTO.getDouble("Latitude");
+                Double longitude = messageReceiveDTO.getDouble("Longitude");
+                JSONObject position = new JSONObject();
+                position.put("latitude",latitude);
+                position.put("longitude",longitude);
+                String positionUserKey = "position" + fromUserName;
+                redisTemplate.opsForHash().putAll(positionUserKey,position);
+                redisTemplate.expire(positionUserKey,300, TimeUnit.SECONDS);
+                return "success";
             }
         }
 
