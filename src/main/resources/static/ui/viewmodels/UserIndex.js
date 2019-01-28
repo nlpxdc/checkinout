@@ -34,6 +34,10 @@ var app = new Vue({
         loadTop() {
             console.log('load top trigger');
             this.$refs.loadmore.onTopLoaded();
+            this.pageNum = 1;
+            this.users = [];
+            this.allLoaded = false;
+            this.getUsers();
         },
         loadBottom() {
             console.log('load bottom trigger');
