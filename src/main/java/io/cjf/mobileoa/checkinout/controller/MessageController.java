@@ -6,10 +6,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.grum.geocalc.Coordinate;
 import com.grum.geocalc.EarthCalc;
 import com.grum.geocalc.Point;
-import io.cjf.mobileoa.checkinout.dto.MediaId;
-import io.cjf.mobileoa.checkinout.dto.MessageAutoResponseDTO;
-import io.cjf.mobileoa.checkinout.dto.MessageReceiveDTO;
-import io.cjf.mobileoa.checkinout.dto.MessageResponseImageDTO;
+import io.cjf.mobileoa.checkinout.dto.*;
 import io.cjf.mobileoa.checkinout.po.User;
 import io.cjf.mobileoa.checkinout.service.WeixinClient;
 import io.cjf.mobileoa.checkinout.service.impl.UserServiceImpl;
@@ -27,10 +24,7 @@ import retrofit2.http.GET;
 import java.io.IOException;
 import java.time.LocalTime;
 import java.time.ZoneId;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 import java.util.concurrent.TimeUnit;
 
 @RestController
@@ -222,7 +216,29 @@ public class MessageController {
                     return messageAutoResponseDTO;
                 }
 
-                if (eventKey.equals("GetMsgRich")){}
+                if (eventKey.equals("GetMsgRich")){
+                    MessageResponseNewsDTO messageAutoResponseDTO = new MessageResponseNewsDTO();
+                    String fromUserName = messageReceiveDTO.getString("FromUserName");
+                    messageAutoResponseDTO.setToUserName(fromUserName);
+                    String toUserName = messageReceiveDTO.getString("ToUserName");
+                    messageAutoResponseDTO.setFromUserName(toUserName);
+                    messageAutoResponseDTO.setCreateTime(new Date().getTime());
+                    messageAutoResponseDTO.setMsgType("news");
+
+                    List<Article> articles = new LinkedList<>();
+
+                    Article article = new Article();
+                    article.setTitle("测试标题");
+                    article.setDescription("测试描述啊啊啊");
+                    article.setPicUrl("http://mmbiz.qpic.cn/mmbiz_png/hNbRTHUvY4xIbuicvlOkI9ZUbZOnbMHNIDZjcPuJibNqf8gvFZWrm9qyQETeOc3g4bWVSz1ic5YicGRaQq7azFm3uQ/0?wx_fmt=png");
+                    article.setUrl("http://mp.weixin.qq.com/s?__biz=Mzg5MDA4NzI1MQ==&mid=100000002&idx=1&sn=ac4db2bab907d4a4b6b7bb93577c0129&chksm=4fe0b33e78973a284dea49bcb476ea826a5e425d77363b5c49a9732d5faa13e6d601391764b4#rd");
+                    articles.add(article);
+
+                    messageAutoResponseDTO.setArticleCount(articles.size());
+                    messageAutoResponseDTO.setArticles(articles);
+
+                    return messageAutoResponseDTO;
+                }
             }
 
             if (event.equals("LOCATION")){
