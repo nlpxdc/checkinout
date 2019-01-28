@@ -6,8 +6,23 @@
     <result column="openId" jdbcType="VARCHAR" property="openid" />
     <result column="time" jdbcType="TIMESTAMP" property="time" />
   </resultMap>
+  <resultMap id="CheckRecordDTO" type="io.cjf.mobileoa.checkinout.dto.CheckRecordDTO">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="openId" jdbcType="VARCHAR" property="openid" />
+    <result column="time" jdbcType="TIMESTAMP" property="time" />
+    <association property="user" column="openId" javaType="io.cjf.mobileoa.checkinout.po.User" select="selectUser"/>
+  </resultMap>
+  <resultMap id="User" type="io.cjf.mobileoa.checkinout.po.User">
+    <id column="openId" jdbcType="VARCHAR" property="openid" />
+    <result column="nickname" jdbcType="VARCHAR" property="nickname" />
+    <result column="gender" jdbcType="INTEGER" property="gender" />
+    <result column="avatar_url" jdbcType="CHAR" property="avatarUrl" />
+  </resultMap>
   <sql id="Base_Column_List">
     id, openId, time
+  </sql>
+  <sql id="User_Column_List">
+    openId, nickname, gender, avatar_url
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
@@ -20,7 +35,7 @@
     <include refid="Base_Column_List" />
     from check_in_out_record
   </select>
-  <select id="selectWithTime" resultMap="BaseResultMap">
+  <select id="selectWithTime" resultMap="CheckRecordDTO">
     select
     <include refid="Base_Column_List" />
     from check_in_out_record
@@ -80,4 +95,13 @@
       time = #{time,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=INTEGER}
   </update>
+
+  <!--custom sql-->
+  <select id="selectUser" parameterType="java.lang.String" resultMap="User">
+    select
+    <include refid="User_Column_List" />
+    from user
+    where openId = #{openId,jdbcType=VARCHAR}
+  </select>
+
 </mapper>

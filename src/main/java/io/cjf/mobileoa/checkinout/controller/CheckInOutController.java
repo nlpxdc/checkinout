@@ -1,6 +1,7 @@
 package io.cjf.mobileoa.checkinout.controller;
 
 import com.github.pagehelper.PageInfo;
+import io.cjf.mobileoa.checkinout.dto.CheckRecordDTO;
 import io.cjf.mobileoa.checkinout.po.CheckInOutRecord;
 import io.cjf.mobileoa.checkinout.service.CheckInOutRecordService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,13 +27,13 @@ public class CheckInOutController {
     }
 
     @GetMapping("/getWithTime")
-    public List<CheckInOutRecord> getWithTime(@RequestParam(required = false) Long timestamp){
+    public List<CheckRecordDTO> getWithTime(@RequestParam(required = false) Long timestamp){
         Date time = new Date();
         if (timestamp != null){
             time = new Date(timestamp);
         }
 
-        List<CheckInOutRecord> checkInOutRecords = checkInOutRecordService.getWithTime(time);
+        List<CheckRecordDTO> checkInOutRecords = checkInOutRecordService.getWithTime(time);
 
         return checkInOutRecords;
     }

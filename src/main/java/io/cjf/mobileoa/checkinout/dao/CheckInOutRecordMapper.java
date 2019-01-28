@@ -1,6 +1,7 @@
 package io.cjf.mobileoa.checkinout.dao;
 
 import com.github.pagehelper.Page;
+import io.cjf.mobileoa.checkinout.dto.CheckRecordDTO;
 import io.cjf.mobileoa.checkinout.po.CheckInOutRecord;
 
 import java.util.Date;
@@ -17,7 +18,7 @@ public interface CheckInOutRecordMapper {
 
     Page<CheckInOutRecord> selectWithPage();
 
-    List<CheckInOutRecord> selectWithTime(Date time);
+    List<CheckRecordDTO> selectWithTime(Date time);
 
     int updateByPrimaryKeySelective(CheckInOutRecord record);
 

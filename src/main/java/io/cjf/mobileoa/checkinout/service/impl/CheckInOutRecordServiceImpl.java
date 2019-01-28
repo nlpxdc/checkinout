@@ -4,6 +4,7 @@ import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import io.cjf.mobileoa.checkinout.dao.CheckInOutRecordMapper;
+import io.cjf.mobileoa.checkinout.dto.CheckRecordDTO;
 import io.cjf.mobileoa.checkinout.po.CheckInOutRecord;
 import io.cjf.mobileoa.checkinout.service.CheckInOutRecordService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,8 +28,9 @@ public class CheckInOutRecordServiceImpl implements CheckInOutRecordService {
     }
 
     @Override
-    public List<CheckInOutRecord> getWithTime(Date time) {
-        List<CheckInOutRecord> checkInOutRecords = checkInOutRecordMapper.selectWithTime(time);
+    public List<CheckRecordDTO> getWithTime(Date time) {
+        List<CheckRecordDTO> checkInOutRecords = checkInOutRecordMapper.selectWithTime(time);
+        checkInOutRecords.stream().forEach(checkRecordDTO -> checkRecordDTO.setTimestamp(checkRecordDTO.getTime().getTime()));
         return checkInOutRecords;
     }
 }
