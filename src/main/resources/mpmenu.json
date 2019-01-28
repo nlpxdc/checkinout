@@ -1,0 +1,44 @@
+{
+  "button": [
+    {
+      "type": "click",
+      "name": "打卡",
+      "key": "checkinout"
+    },
+    {
+      "name": "后台网页",
+      "sub_button": [
+        {
+          "type": "view",
+          "name": "多页",
+          "url": "http://39.106.142.112/ui/AdminIndex.html"
+        },
+        {
+          "type": "view",
+          "name": "SPA",
+          "url": "http://39.106.142.112/spa/AdminIndex.html"
+        }
+      ]
+    },
+    {
+      "name": "获取消息",
+      "sub_button": [
+        {
+          "type": "click",
+          "name": "文本消息",
+          "key": "GetMsgText"
+        },
+        {
+          "type": "click",
+          "name": "图片消息",
+          "key": "GetMsgPic"
+        },
+        {
+          "type": "click",
+          "name": "图文消息",
+          "key": "GetMsgRich"
+        }
+      ]
+    }
+  ]
+}
