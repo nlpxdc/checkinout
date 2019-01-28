@@ -3,9 +3,10 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width,height=device-height,user-scalable=no">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="assets/css/mintui.css">
+    <link rel="stylesheet" href="assets/css/custom.css">
     <title>UserIndex</title>
     <script src="assets/js/vconsole.min.js"></script>
     <script>
@@ -15,9 +16,15 @@
 
 <body>
     <div id="app">
-        <mt-cell v-for="user in pageInfo.list" :title="user.nickname" :value="user.gender">
-            <img slot="icon" :src="user.avatarUrl" width="24" height="24">
-        </mt-cell>
+        <mt-loadmore :top-method="loadTop" :bottom-method="loadBottom" :bottom-all-loaded="allLoaded" ref="loadmore"
+            :auto-fill="false">
+            <div class="content">
+                <mt-cell v-for="user in users" :key="user.openid" :title="user.nickname" :value="user.gender">
+                    <img slot="icon" :src="user.avatarUrl" width="24" height="24">
+                </mt-cell>
+            </div>
+        </mt-loadmore>
+
     </div>
 
     <script src="assets/js/jweixin-1.4.0.js"></script>

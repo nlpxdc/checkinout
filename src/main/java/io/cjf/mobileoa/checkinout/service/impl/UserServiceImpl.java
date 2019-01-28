@@ -44,7 +44,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public PageInfo<User> getWithPage(Integer pageNum) {
-        PageHelper.startPage(pageNum,10);
+        PageHelper.startPage(pageNum,1);
         Page<User> users = userMapper.selectWithPage();
         PageInfo<User> userPageInfo = users.toPageInfo();
         return userPageInfo;
