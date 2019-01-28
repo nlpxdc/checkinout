@@ -7,7 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="assets/css/mintui.css">
     <link rel="stylesheet" href="assets/css/custom.css">
-    <title>Demo</title>
+    <title>CheckRecordIndex</title>
     <script src="assets/js/vconsole.min.js"></script>
     <script>
         var vConsole = new VConsole();
@@ -16,14 +16,22 @@
 
 <body>
     <div id="app">
-        Demo
+        <mt-loadmore :top-method="loadTop" :bottom-method="loadBottom" :bottom-all-loaded="allLoaded" ref="loadmore"
+            :auto-fill="false">
+            <div class="content">
+                <mt-cell v-for="item in checkRecords" :key="item.id" :title="item.user.nickname" :value="item.time">
+                    <img slot="icon" :src="item.user.avatarUrl" width="24" height="24">
+                </mt-cell>
+            </div>
+        </mt-loadmore>
     </div>
 
     <script src="assets/js/jweixin-1.4.0.js"></script>
     <script src="assets/js/axios.min.js"></script>
+    <script src="assets/js/moment.min.js"></script>
     <script src="assets/js/vue.js"></script>
     <script src="assets/js/mintui.js"></script>
-    <script src="viewmodels/demo.js"></script>
+    <script src="viewmodels/CheckRecordIndex.js"></script>
 </body>
 
 </html>

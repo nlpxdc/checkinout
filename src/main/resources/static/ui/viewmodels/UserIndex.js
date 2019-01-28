@@ -18,10 +18,18 @@ var app = new Vue({
             })
                 .then(function (response) {
                     console.log(response);
+
+                    if (app.pageNum === 1) {
+                        app.$refs.loadmore.onTopLoaded();
+                    } else {
+                        app.$refs.loadmore.onBottomLoaded();
+                    }
+
                     var users = response.data.list;
-                    app.users.push.apply(
-                        app.users,
-                        users);
+                    // app.users.push.apply(
+                    //     app.users,
+                    //     users);
+                    app.users.push(...users);
                     if(!users.length){
                         app.allLoaded = true;
                         MINT.Toast('没有更多数据了');
@@ -33,7 +41,6 @@ var app = new Vue({
         },
         loadTop() {
             console.log('load top trigger');
-            this.$refs.loadmore.onTopLoaded();
             this.pageNum = 1;
             this.users = [];
             this.allLoaded = false;
@@ -43,7 +50,6 @@ var app = new Vue({
             console.log('load bottom trigger');
             this.pageNum++;
             this.getUsers();
-            this.$refs.loadmore.onBottomLoaded();
         }
     }
 });
