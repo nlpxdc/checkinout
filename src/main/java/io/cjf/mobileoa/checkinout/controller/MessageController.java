@@ -6,8 +6,10 @@ import com.alibaba.fastjson.JSONObject;
 import com.grum.geocalc.Coordinate;
 import com.grum.geocalc.EarthCalc;
 import com.grum.geocalc.Point;
+import io.cjf.mobileoa.checkinout.dto.MediaId;
 import io.cjf.mobileoa.checkinout.dto.MessageAutoResponseDTO;
 import io.cjf.mobileoa.checkinout.dto.MessageReceiveDTO;
+import io.cjf.mobileoa.checkinout.dto.MessageResponseImageDTO;
 import io.cjf.mobileoa.checkinout.po.User;
 import io.cjf.mobileoa.checkinout.service.WeixinClient;
 import io.cjf.mobileoa.checkinout.service.impl.UserServiceImpl;
@@ -193,6 +195,34 @@ public class MessageController {
                     messageAutoResponseDTO.setContent(content);
                     return messageAutoResponseDTO;
                 }
+
+                if (eventKey.equals("GetMsgText")){
+                    MessageAutoResponseDTO messageAutoResponseDTO = new MessageAutoResponseDTO();
+                    String fromUserName = messageReceiveDTO.getString("FromUserName");
+                    messageAutoResponseDTO.setToUserName(fromUserName);
+                    String toUserName = messageReceiveDTO.getString("ToUserName");
+                    messageAutoResponseDTO.setFromUserName(toUserName);
+                    messageAutoResponseDTO.setCreateTime(new Date().getTime());
+                    messageAutoResponseDTO.setMsgType("text");
+                    messageAutoResponseDTO.setContent("测试文本");
+                    return messageAutoResponseDTO;
+                }
+
+                if (eventKey.equals("GetMsgPic")){
+                    MessageResponseImageDTO messageAutoResponseDTO = new MessageResponseImageDTO();
+                    String fromUserName = messageReceiveDTO.getString("FromUserName");
+                    messageAutoResponseDTO.setToUserName(fromUserName);
+                    String toUserName = messageReceiveDTO.getString("ToUserName");
+                    messageAutoResponseDTO.setFromUserName(toUserName);
+                    messageAutoResponseDTO.setCreateTime(new Date().getTime());
+                    messageAutoResponseDTO.setMsgType("image");
+                    MediaId mediaId = new MediaId();
+                    mediaId.setMediaId("hTHEYOF_rpPvdOQVLWztGRSND3H3bCUVNZu6SeW2EZ8");
+                    messageAutoResponseDTO.setImage(mediaId);
+                    return messageAutoResponseDTO;
+                }
+
+                if (eventKey.equals("GetMsgRich")){}
             }
 
             if (event.equals("LOCATION")){
