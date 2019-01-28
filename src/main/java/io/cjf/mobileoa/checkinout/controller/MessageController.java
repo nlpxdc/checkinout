@@ -233,6 +233,7 @@ public class MessageController {
                     article.setPicUrl("http://mmbiz.qpic.cn/mmbiz_png/hNbRTHUvY4xIbuicvlOkI9ZUbZOnbMHNIDZjcPuJibNqf8gvFZWrm9qyQETeOc3g4bWVSz1ic5YicGRaQq7azFm3uQ/0?wx_fmt=png");
                     article.setUrl("http://mp.weixin.qq.com/s?__biz=Mzg5MDA4NzI1MQ==&mid=100000002&idx=1&sn=ac4db2bab907d4a4b6b7bb93577c0129&chksm=4fe0b33e78973a284dea49bcb476ea826a5e425d77363b5c49a9732d5faa13e6d601391764b4#rd");
                     articles.add(article);
+                    articles.add(article);
 
                     messageAutoResponseDTO.setArticleCount(articles.size());
                     messageAutoResponseDTO.setArticles(articles);
