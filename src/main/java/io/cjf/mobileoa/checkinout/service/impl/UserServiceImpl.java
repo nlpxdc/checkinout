@@ -1,5 +1,8 @@
 package io.cjf.mobileoa.checkinout.service.impl;
 
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import io.cjf.mobileoa.checkinout.dao.CheckInOutRecordMapper;
 import io.cjf.mobileoa.checkinout.dao.UserMapper;
 import io.cjf.mobileoa.checkinout.po.CheckInOutRecord;
@@ -37,5 +40,13 @@ public class UserServiceImpl implements UserService {
         checkInOutRecord.setTime(time);
 
         checkInOutRecordMapper.insert(checkInOutRecord);
+    }
+
+    @Override
+    public PageInfo<User> getWithPage(Integer pageNum) {
+        PageHelper.startPage(pageNum,10);
+        Page<User> users = userMapper.selectWithPage();
+        PageInfo<User> userPageInfo = users.toPageInfo();
+        return userPageInfo;
     }
 }

@@ -16,6 +16,11 @@
     from user
     where openId = #{openid,jdbcType=VARCHAR}
   </select>
+  <select id="selectWithPage" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from user
+  </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
     delete from user
     where openId = #{openid,jdbcType=VARCHAR}
