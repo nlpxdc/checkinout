@@ -9,6 +9,9 @@ import io.cjf.mobileoa.checkinout.service.CheckInOutRecordService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
+import java.util.List;
+
 @Service
 public class CheckInOutRecordServiceImpl implements CheckInOutRecordService {
 
@@ -21,5 +24,11 @@ public class CheckInOutRecordServiceImpl implements CheckInOutRecordService {
         Page<CheckInOutRecord> checkInOutRecords = checkInOutRecordMapper.selectWithPage();
         PageInfo<CheckInOutRecord> checkInOutRecordsPageInfo = checkInOutRecords.toPageInfo();
         return checkInOutRecordsPageInfo;
+    }
+
+    @Override
+    public List<CheckInOutRecord> getWithTime(Date time) {
+        List<CheckInOutRecord> checkInOutRecords = checkInOutRecordMapper.selectWithTime(time);
+        return checkInOutRecords;
     }
 }

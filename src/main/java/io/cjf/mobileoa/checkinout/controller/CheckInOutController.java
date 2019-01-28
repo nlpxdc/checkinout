@@ -9,6 +9,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Date;
+import java.util.List;
+
 @RestController
 @RequestMapping("/checkinout")
 public class CheckInOutController {
@@ -17,8 +20,20 @@ public class CheckInOutController {
     private CheckInOutRecordService checkInOutRecordService;
 
     @GetMapping("/getWithPage")
-    PageInfo<CheckInOutRecord> getWithPage(@RequestParam(required = false, defaultValue = "1") Integer pageNum){
+    public PageInfo<CheckInOutRecord> getWithPage(@RequestParam(required = false, defaultValue = "1") Integer pageNum){
         PageInfo<CheckInOutRecord> checkInOutRecordPageInfo = checkInOutRecordService.getWithPage(pageNum);
         return checkInOutRecordPageInfo;
+    }
+
+    @GetMapping("/getWithTime")
+    public List<CheckInOutRecord> getWithTime(@RequestParam(required = false) Long timestamp){
+        Date time = new Date();
+        if (timestamp != null){
+            time = new Date(timestamp);
+        }
+
+        List<CheckInOutRecord> checkInOutRecords = checkInOutRecordService.getWithTime(time);
+
+        return checkInOutRecords;
     }
 }
