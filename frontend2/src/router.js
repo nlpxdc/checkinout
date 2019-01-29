@@ -1,6 +1,8 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Home from './views/Home.vue'
+import AdminIndex from './views/AdminIndex.vue'
+import UserIndex from './views/UserIndex.vue'
+import CheckRecordIndex from './views/CheckRecordIndex.vue'
 
 Vue.use(Router)
 
@@ -8,8 +10,18 @@ export default new Router({
   routes: [
     {
       path: '/',
-      name: 'home',
-      component: Home
+      name: 'AdminIndex',
+      component: AdminIndex
+    },
+    {
+      path: '/UserIndex',
+      name: 'UserIndex',
+      component: UserIndex
+    },
+    {
+      path: '/CheckRecordIndex',
+      name: 'CheckRecordIndex',
+      component: CheckRecordIndex
     },
     {
       path: '/about',
