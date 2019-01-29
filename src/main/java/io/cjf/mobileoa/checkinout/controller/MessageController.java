@@ -58,11 +58,11 @@ public class MessageController {
 //        return echostr;
 //    }
 
-    @GetMapping("/receive")
-    public String receive(@RequestParam String echostr){
-        logger.info("{}", echostr);
-        return echostr;
-    }
+//    @GetMapping("/receive")
+//    public String receive(@RequestParam String echostr){
+//        logger.info("{}", echostr);
+//        return echostr;
+//    }
 
 //    @RequestMapping(value = "/receive", produces = MediaType.APPLICATION_XML_VALUE)
 //    public MessageTextDTO receive(@RequestBody(required = false) String jsonObject, @RequestParam Map<String,String> allParams, @RequestParam(required = false) String echostr){
@@ -88,7 +88,7 @@ public class MessageController {
 //        //return echostr;
 //    }
 
-    @PostMapping(value = "/receive2",produces = MediaType.APPLICATION_XML_VALUE)
+    @PostMapping(value = "/receive",produces = MediaType.APPLICATION_XML_VALUE)
     public Object receive2(@RequestBody JSONObject messageReceiveDTO) throws Exception {
         logger.info("{}",JSON.toJSONString(messageReceiveDTO));
 //        MessageAutoResponseDTO messageAutoResponseDTO = new MessageAutoResponseDTO();
