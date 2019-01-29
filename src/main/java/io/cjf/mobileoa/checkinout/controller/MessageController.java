@@ -51,6 +51,13 @@ public class MessageController {
     @Value("${checkInOut.longitude}")
     private Double checkLongitude;
 
+    @GetMapping("/receive")
+    public String receive(@RequestParam JSONObject allParams){
+        logger.info("{}", allParams);
+        String echostr = allParams.getString("echostr");
+        return echostr;
+    }
+
 //    @RequestMapping(value = "/receive", produces = MediaType.APPLICATION_XML_VALUE)
 //    public MessageTextDTO receive(@RequestBody(required = false) String jsonObject, @RequestParam Map<String,String> allParams, @RequestParam(required = false) String echostr){
 //        logger.info("{}", jsonObject);
