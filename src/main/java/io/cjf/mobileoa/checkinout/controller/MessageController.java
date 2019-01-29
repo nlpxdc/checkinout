@@ -51,10 +51,16 @@ public class MessageController {
     @Value("${checkInOut.longitude}")
     private Double checkLongitude;
 
+//    @GetMapping("/receive")
+//    public Long receive(@RequestParam JSONObject allParams){
+//        logger.info("{}", allParams);
+//        Long echostr = allParams.getLong("echostr");
+//        return echostr;
+//    }
+
     @GetMapping("/receive")
-    public Long receive(@RequestParam JSONObject allParams){
-        logger.info("{}", allParams);
-        Long echostr = allParams.getLong("echostr");
+    public String receive(@RequestParam String echostr){
+        logger.info("{}", echostr);
         return echostr;
     }
 
