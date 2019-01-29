@@ -16,6 +16,7 @@ import java.util.Date;
 @RestController
 @EnableAutoConfiguration
 @RequestMapping("/user")
+@CrossOrigin
 public class UserController {
 
     @Autowired

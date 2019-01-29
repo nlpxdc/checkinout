@@ -5,4 +5,7 @@
 </template>
 
 <style>
+.content{
+  min-height: 360px;
+}
 </style>
