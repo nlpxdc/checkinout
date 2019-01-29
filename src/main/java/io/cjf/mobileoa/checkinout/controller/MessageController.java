@@ -224,7 +224,7 @@ public class MessageController {
                     messageAutoResponseDTO.setCreateTime(new Date().getTime());
                     messageAutoResponseDTO.setMsgType("image");
                     MediaId mediaId = new MediaId();
-                    mediaId.setMediaId("hTHEYOF_rpPvdOQVLWztGRSND3H3bCUVNZu6SeW2EZ8");
+                    mediaId.setMediaId("hTHEYOF_rpPvdOQVLWztGb8NOvQLvWsgNUu9moIB-Fs");
                     messageAutoResponseDTO.setImage(mediaId);
                     return messageAutoResponseDTO;
                 }
@@ -241,12 +241,18 @@ public class MessageController {
                     List<Article> articles = new LinkedList<>();
 
                     Article article = new Article();
-                    article.setTitle("测试标题");
-                    article.setDescription("测试描述啊啊啊");
-                    article.setPicUrl("http://mmbiz.qpic.cn/mmbiz_png/hNbRTHUvY4xIbuicvlOkI9ZUbZOnbMHNIDZjcPuJibNqf8gvFZWrm9qyQETeOc3g4bWVSz1ic5YicGRaQq7azFm3uQ/0?wx_fmt=png");
-                    article.setUrl("http://mp.weixin.qq.com/s?__biz=Mzg5MDA4NzI1MQ==&mid=100000002&idx=1&sn=ac4db2bab907d4a4b6b7bb93577c0129&chksm=4fe0b33e78973a284dea49bcb476ea826a5e425d77363b5c49a9732d5faa13e6d601391764b4#rd");
+                    article.setTitle("bitcoin标题");
+                    article.setDescription("bitcoin描述啊啊啊");
+                    article.setPicUrl("http://mmbiz.qpic.cn/mmbiz_png/hNbRTHUvY4x8L1hT6pdMj2GeNOAb593qeTvmicJDtK78nqk2fBiaDO2yFg81GD5klJJ19SuwHEMUX7GE0KiaIKHPg/0?wx_fmt=png");
+                    article.setUrl("https://mp.weixin.qq.com/s?__biz=Mzg5MDA4NzI1MQ==&mid=100000006&idx=1&sn=8520c9f72d35a5f4869c3726ee804315&chksm=4fe0b33a78973a2cfe2fbc99e9ae0617510e7cb8326d3a142620adb4d6b5ac7d37ac4f45cfc4#rd");
                     articles.add(article);
-                    articles.add(article);
+
+                    Article article2 = new Article();
+                    article2.setTitle("dog标题");
+                    article2.setDescription("dog描述啊啊啊");
+                    article2.setPicUrl("http://mmbiz.qpic.cn/mmbiz_jpg/hNbRTHUvY4x8L1hT6pdMj2GeNOAb593qLgupMZRjfDAvyuSIGM8rXlSQKojSoWiaNFkU4jpMwwoNkFicVdwCqLUw/0?wx_fmt=jpeg");
+                    article2.setUrl("https://mp.weixin.qq.com/s?__biz=Mzg5MDA4NzI1MQ==&mid=100000006&idx=2&sn=f584356151789d8a6e3ef0e1959edde3&chksm=4fe0b33a78973a2c820d9ed570e2c776bbdbfd4461e05a8fd514d6c5dc5e2d9622aa8bb1a7bb#rd");
+                    articles.add(article2);
 
                     messageAutoResponseDTO.setArticleCount(articles.size());
                     messageAutoResponseDTO.setArticles(articles);
