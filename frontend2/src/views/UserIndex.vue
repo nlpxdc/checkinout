@@ -25,10 +25,8 @@
 </style>
 
 <script>
-import axios from 'axios';
 import { Toast } from 'mint-ui';
-
-axios.defaults.baseURL = 'http://localhost:8080';
+import axios from 'axios';
 
 export default {
   data() {
