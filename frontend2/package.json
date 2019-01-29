@@ -10,6 +10,7 @@
   "dependencies": {
     "axios": "^0.18.0",
     "mint-ui": "^2.2.13",
+    "vconsole": "^3.2.2",
     "vue": "^2.5.21",
     "vue-router": "^3.0.1"
   },
