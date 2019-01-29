@@ -52,9 +52,9 @@ public class MessageController {
     private Double checkLongitude;
 
     @GetMapping("/receive")
-    public String receive(@RequestParam JSONObject allParams){
+    public Long receive(@RequestParam JSONObject allParams){
         logger.info("{}", allParams);
-        String echostr = allParams.getString("echostr");
+        Long echostr = allParams.getLong("echostr");
         return echostr;
     }
 
