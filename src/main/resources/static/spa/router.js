@@ -3,7 +3,6 @@
 
 // 1. Define route components.
 // These can be imported from other files
-const Root = { template: '<div>root</div>' }
 const Foo = { template: '<div>foo</div>' }
 const Bar = { template: '<div>bar</div>' }
 
@@ -13,7 +12,7 @@ const Bar = { template: '<div>bar</div>' }
 // `Vue.extend()`, or just a component options object.
 // We'll talk about nested routes later.
 const routes = [
-    { path: '/', component: Root },
+    { path: '/', component: AdminIndexPage },
     { path: '/foo', component: Foo },
     { path: '/bar', component: Bar }
 ]
